@@ -30,7 +30,7 @@
    *    - key
    *    - value
    *    - flexGrow
-   * @return {Object} { key: valFlexed }
+   * @return {Object|Null} { key: valFlexed }
    */
   function flexGrow(containerValue, data) {
     var valueLess
