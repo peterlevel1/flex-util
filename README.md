@@ -1,9 +1,18 @@
-### FlexUtil
+## FlexUtil
+---
+
+#### this is an umd package, so you can use it in nodejs, web browser, or amd context
+
+#### global namespace is FlexUtil if it is loaded as single script without amd loader;
+---
 
 #### pure computing flex-shrink,  flex-grow
 #### compitale for PC, mobile web or webView
+---
 
+#### npm:
 `npm install flex-util`
+---
 
 #### exports.flexGrow(width, list<{ key: string, flexGrow: number, width: number }>): {Object|Null}
 `flexGrow: when items width sum <= container value, or you would got null`
