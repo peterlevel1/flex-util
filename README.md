@@ -11,7 +11,7 @@
 ---
 
 #### npm:
-`npm install flex-util`
+#### npm install flex-util
 ---
 
 #### exports.flexGrow(width, list<{ key: string, flexGrow: number, width: number }>): {Object|Null}
@@ -54,4 +54,3 @@ const obj = FlexUtil.flexShrink(containerWidth, arr)
 ```
 
 ### LICENSE: MIT
-
