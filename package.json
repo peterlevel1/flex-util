@@ -1,0 +1,25 @@
+{
+  "name": "flex-util",
+  "version": "1.0.0",
+  "description": "a package to handle flex counting work",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterlevel1/flex-util.git"
+  },
+  "keywords": [
+    "flex",
+    "react-native",
+    "css",
+    "style"
+  ],
+  "author": "cc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peterlevel1/flex-util/issues"
+  },
+  "homepage": "https://github.com/peterlevel1/flex-util#readme"
+}
