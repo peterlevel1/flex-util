@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>flex</title>
+  <style>
+    .box {
+      background-color: #89479B;
+      display: flex;
+      margin-top: 20px;
+    }
+
+    .item {
+      height: 300px;
+    }
+
+    .item0 {
+      background-color: #E88023;
+    }
+
+    .item1 {
+      background-color: #94C594;
+    }
+
+    .item2 {
+      background-color: #D3EDF5;
+    }
+  </style>
+</head>
+<body>
+  <div id='root'>
+    <h1>open your console to see the result</h1>
+    <div class='box box-01'>
+      <div class='item item0'></div>
+      <div class='item item1'></div>
+      <div class='item item2'></div>
+    </div>
+  </div>
+  <script src='../index.js'></script>
+  <script src='https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js'></script>
+  <script>
+    ;(({
+      ATTR,
+      width,
+      arr
+    }) => {
+      function getItemsData(attr) {
+        const ret = {}
+        return $('.box').find('.item').map(function () {
+          return {
+            key: $(this).attr('class').replace('item ', ''),
+            value: $(this).width(),
+            [`${attr}`]: $(this).css(attr) - 0
+          }
+        })
+        .get();
+      }
+
+      function setItemsData(attr, list) {
+        list.forEach((obj) => {
+          const ret = {}
+          const item = $('.box').find(`.${obj.key}`)
+          const data = {
+            width: obj.value,
+            [`${attr}`]: obj[attr],
+          }
+          item.css(data);
+        })
+      }
+
+      function asyncTest(arr, i) {
+        if (i >= arr.length) {
+          return console.log('=== end ===');
+        }
+
+        // ====================================
+        // FlexUtil counting
+        // ====================================
+        // 1. get flex data from arr[i]
+        const obj = FlexUtil[ATTR](width, arr[i]);
+
+        // ====================================
+        // computer counting
+        // ====================================
+        // 2. set data on dom nodes by arr[i]
+        setItemsData(ATTR, arr[i]);
+
+        // 3. get flex data from dom nodes
+        const itemsData = getItemsData(ATTR);
+
+        // 4. test each prop
+        itemsData.forEach((item) => {
+          const key = item.key;
+          if (~~obj[key] !== ~~item.value) {
+            // 5. if error, throw it
+            throw new Error(`error, index: ${i}, key: ${key}, value: FlexUtil: ${~~obj[key]}, Computer: ${~~item.value}`);
+          }
+        });
+
+        console.log(`done, arr index: ${i}`);
+
+        // 6. next
+        setTimeout(() => {
+          asyncTest(arr, i + 1);
+        });
+      }
+
+      function start() {
+        $('.box').width(width);
+        asyncTest(arr, 0);
+      }
+
+      start();
+    })({
+      ATTR: 'flexGrow',
+      width: 500,
+      arr: [
+        [
+          { key: 'item0', value: 100, flexGrow: 1 },
+          { key: 'item1', value: 100, flexGrow: 1 },
+          { key: 'item2', value: 100, flexGrow: 1 },
+        ],
+        [
+          { key: 'item0', value: 100, flexGrow: 1 },
+          { key: 'item1', value: 100, flexGrow: 2 },
+          { key: 'item2', value: 100, flexGrow: 1 },
+        ],
+        [
+          { key: 'item0', value: 50, flexGrow: 0 },
+          { key: 'item1', value: 200, flexGrow: 0 },
+          { key: 'item2', value: 10, flexGrow: 1 },
+        ],
+        // =======================================================
+        [
+          { key: 'item0', value: 50, flexGrow: 0 },
+          { key: 'item1', value: 100, flexGrow: 0 },
+          { key: 'item2', value: 50, flexGrow: 0 },
+        ],
+        // =======================================================
+        // equal
+        [
+          { key: 'item0', value: 200, flexGrow: 0 },
+          { key: 'item1', value: 200, flexGrow: 0 },
+          { key: 'item2', value: 100, flexGrow: 1 },
+        ],
+      ]
+    });
+
+  </script>
+</body>
+</html>
